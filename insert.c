@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   insert.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 22:34:34 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/25 00:36:55 by rel-maza         ###   ########.fr       */
+/*   Created: 2022/08/24 23:24:58 by rel-maza          #+#    #+#             */
+/*   Updated: 2022/08/25 00:04:53 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int main(int argc, char **argv)
+void    ft_insert_args(t_utils *utils, int argc, char **argv)
 {
 
-    t_utils *utils;
-
-    if (argc != 5 && argc != 6)
+    utils->nbr_of_philo = ft_atoi(argv[1]);
+    utils->time_to_die = ft_atoi(argv[2]);
+    utils->time_to_eat = ft_atoi(argv[3]);
+    utils->time_to_sleep = ft_atoi(argv[4]);
+    if (argc == 6)
     {
-        write(1, "error\n", 6);
-        return (0);
+        utils->nbr_of_times_each_philo_must_eat = ft_atoi(argv[5]);
     }
-    utils = malloc(sizeof(t_utils));
-    ft_insert_args(utils, argc, argv);
-    ft_check_error(utils, argc);
-    
-    
+    else
+        utils->nbr_of_times_each_philo_must_eat = 0;
 
 }
