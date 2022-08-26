@@ -15,17 +15,14 @@
 int main(int argc, char **argv)
 {
 
-    t_utils *utils;
+    t_utils utils;
 
     if (argc != 5 && argc != 6)
     {
         write(1, "error\n", 6);
         return (0);
     }
-    utils = malloc(sizeof(t_utils));
     ft_insert_args(utils, argc, argv);
-    ft_check_error(utils, argc);
-    
-    
-
+    if (!ft_check_error(utils, argv, argc))
+        return (0);
 }

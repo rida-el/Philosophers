@@ -23,7 +23,12 @@ typedef struct s_utils
 	int				nbr_of_times_each_philo_must_eat;
 }	t_utils;
 
-
+typedef struct s_philo
+{
+	int			id;
+	t_info		*info;
+	pthread_t	thread;
+}	t_philo;
 
 
 
