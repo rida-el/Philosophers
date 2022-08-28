@@ -17,16 +17,20 @@ int main(int argc, char **argv)
 
     t_utils utils;
     t_philo *philo;
+	int i;
 
+	i = 0;
     if (argc != 5 && argc != 6)
-    {
-        write(1, "error\n", 6);
-        return (0);
-    }
+        return (printf("error\n") , 1);
     ft_insert_args(utils, argc, argv);
     if (!ft_check_error(utils, argv, argc))
         return (0);
     philo = malloc(sizeof(t_philo) * utils.nbr_of_philo);
-    utils.fork
-    
+    utils.fork = malloc(sizeof(pthread_mutex_t) * utils.nbr_of_philo);
+	while(i < utils.nbr_of_philo)
+	{	
+		pthread_mutex_init(&utils.fork[i],NULL);
+		i++;
+	}
+    ft_create_philo(&utils,&philo);
 }
