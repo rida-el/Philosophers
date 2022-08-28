@@ -13,6 +13,7 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <pthread.h>
 
 typedef struct s_utils
 {
@@ -21,13 +22,14 @@ typedef struct s_utils
 	int				time_to_sleep;
 	int				nbr_of_philo;
 	int				nbr_of_times_each_philo_must_eat;
+	pthread_mutex_h	fork;
 }	t_utils;
 
 typedef struct s_philo
 {
 	int			id;
-	t_info		*info;
 	pthread_t	thread;
+	
 }	t_philo;
 
 

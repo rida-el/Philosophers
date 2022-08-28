@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 {
 
     t_utils utils;
+    t_philo *philo;
 
     if (argc != 5 && argc != 6)
     {
@@ -25,4 +26,7 @@ int main(int argc, char **argv)
     ft_insert_args(utils, argc, argv);
     if (!ft_check_error(utils, argv, argc))
         return (0);
+    philo = malloc(sizeof(t_philo) * utils.nbr_of_philo);
+    utils.fork
+    
 }
