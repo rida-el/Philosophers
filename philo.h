@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:06:22 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/28 17:22:09 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:47:46 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ typedef struct s_utils
 	int				time_to_sleep;
 	int				nbr_of_philo;
 	int				nbr_of_times_each_philo_must_eat;
+	int				is_died;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t print;
+	
 }	t_utils;
 
 typedef struct s_philo
@@ -34,7 +37,10 @@ typedef struct s_philo
 	int			right_fork;
 	int			left_fork;
 	int			is_died;
-	
+	t_utils		*utils;
+	int			last_eat;
+	int			nbr_of_eat;
+	int 		argc;
 }	t_philo;
 
 
