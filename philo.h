@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:06:22 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/29 15:47:46 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:48:10 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <sys/time.h>
 
 typedef struct s_utils
 {
@@ -47,6 +49,18 @@ typedef struct s_philo
 
 //utils
 int	ft_atoi(const char *str);
+long long	ft_sleep(int time_in_milliseconds);
+int	ft_isdigit(int c);
+long long	gettime();
+int ft_chaeck_args(char *str);
+int ft_check_numbers(int argc, char **argv);
+int ft_check_error(t_utils utils, int argc, char **argv);
+void	*routine(void *philo);
+void	*check_is_died(t_philo **philo);
+int	ft_num_eating_check(t_philo *philo, int n_eat, int argc);
+void	ft_create_threads(t_utils *utils,t_philo **philo);
+void	ft_create_philo(t_utils *utils,t_philo **philo, int ac);
+void    ft_insert_args(t_utils *utils, int argc, char **argv);
 
 
 #endif
