@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:36:14 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/29 16:01:21 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:50:44 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*routine(void *philo)
 		usleep(ft_sleep(ph->utils->time_to_sleep));
 		printf("timestamp_in_ms X is thinking");
 	}
-	
+	return(0);
 }
 
 // grtTime() - first eat >= time to die
@@ -54,19 +54,19 @@ void	*check_is_died(t_philo **philo)
 				pthread_mutex_lock(&data->print);
 				printf("\033 %lld \033 %d \033 died\n",gettime(), i + 1);
 				data->is_died = 1;
-				return (1);	
+				break;	
 			}
-			if (ft_num_eating_check(philo, data->nbr_of_times_each_philo_must_eat  ,data->nbr_of_philo, (*philo)->argc) == 0)
+			if (ft_num_eating_check(*philo, data->nbr_of_times_each_philo_must_eat , (*philo)->argc) == 0)
 			{
 				usleep(100);
 				data->is_died = 1;
-				return (1);	
+				break;
 			}
 		}
 	}
 }
 
-int	ft_num_eating_check(t_philo *philo, int n_eat, int nbr_philo, int argc)
+int	ft_num_eating_check(t_philo *philo, int n_eat, int argc)
 {
 	int		i;
 
@@ -87,7 +87,7 @@ int	ft_num_eating_check(t_philo *philo, int n_eat, int nbr_philo, int argc)
 void	ft_create_threads(t_utils *utils,t_philo **philo)
 {
 	t_philo *ph;
-	pthread_t check; 
+	// pthread_t check; 
 	int i;
 
 	i = 0;
@@ -95,10 +95,12 @@ void	ft_create_threads(t_utils *utils,t_philo **philo)
 	// pthread_t	*thread = &(ph->thread);
 	while (i < utils->nbr_of_philo)
 	{
-		pthread_create(&ph[i], NULL ,&routine, &ph[i]);	
+		pthread_create(&ph[i].thread, NULL ,&routine, &ph[i]);	
 		i++;
 	}
-	pthread_create(&check,NULL,&check_is_died, philo);
+	// pthread_create(&check,NULL,&check_is_died, NULL);
+	check_is_died(philo);
+	
 }
 
 
