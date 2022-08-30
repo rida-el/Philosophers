@@ -6,13 +6,13 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:12:31 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/29 11:54:32 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:22:02 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_chaeck_args(char *str)
+int ft_check_args(char *str)
 {
     int i;
 
