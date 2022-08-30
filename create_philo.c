@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:36:14 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/30 16:50:44 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:32:00 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@ void	*routine(void *philo)
 	t_philo *ph;
 	
 	ph =(t_philo *) philo;
+	printf("philo num == %d\n", ph->id);
 	while (ph->is_died == 0)
 	{
-		pthread_mutex_lock(&ph->utils->fork[ph->left_fork]);
-		printf("timestamp_in_ms %d has taken a fork",(*ph).id);
-		pthread_mutex_lock(&ph->utils->fork[ph->right_fork]);
-		printf("timestamp_in_ms %d has taken a fork",(*ph).id);
-		printf("timestamp_in_ms %d is eating",(*ph).id);
+		pthread_mutex_lock(&(ph->utils->fork[ph->left_fork]));
+		printf("timestamp_in_ms %d has taken a fork\n",(*ph).id);
+		pthread_mutex_lock(&(ph->utils->fork[ph->right_fork]));
+		printf("timestamp_in_ms %d has taken a fork\n",(*ph).id);
+		printf("timestamp_in_ms %d is eating\n",(*ph).id);
 		usleep(ft_sleep(ph->utils->time_to_eat));
 		ph->last_eat = gettime();
 		ph->nbr_of_eat += 1;
-		pthread_mutex_unlock(&ph->utils->fork[ph->left_fork]);
-		pthread_mutex_unlock(&ph->utils->fork[ph->right_fork]);
-		printf("timestamp_in_ms %d is sleeping",(*ph).id);
+		pthread_mutex_unlock(&(ph->utils->fork[ph->left_fork]));
+		pthread_mutex_unlock(&(ph->utils->fork[ph->right_fork]));
+		printf("timestamp_in_ms %d is sleeping\n",(*ph).id);
 		usleep(ft_sleep(ph->utils->time_to_sleep));
-		printf("timestamp_in_ms X is thinking");
+		printf("timestamp_in_ms X is thinking\n");
 	}
 	return(0);
 }
@@ -95,11 +96,11 @@ void	ft_create_threads(t_utils *utils,t_philo **philo)
 	// pthread_t	*thread = &(ph->thread);
 	while (i < utils->nbr_of_philo)
 	{
-		pthread_create(&ph[i].thread, NULL ,&routine, &ph[i]);	
+		pthread_create(&(ph[i].thread), NULL ,&routine, &(ph[i]));	
 		i++;
 	}
 	// pthread_create(&check,NULL,&check_is_died, NULL);
-	check_is_died(philo);
+	// check_is_died(philo);
 	
 }
 
@@ -112,8 +113,9 @@ void	ft_create_philo(t_utils *utils,t_philo **philo, int ac)
 	i = 0;
 	while (i < utils->nbr_of_philo)
 	{
+		// printf("1");
 		(**philo).id = i + 1;
-		if((**philo).id == 1)
+		if(i == 0)
 			(**philo).right_fork = utils->nbr_of_philo;
 		else
 			(**philo).right_fork = i ;
@@ -124,6 +126,4 @@ void	ft_create_philo(t_utils *utils,t_philo **philo, int ac)
 		i++;
 	}
 	(**philo).argc = ac;
-	ft_create_threads(utils,philo);
-	
 }
