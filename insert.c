@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:24:58 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/30 17:42:41 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:49:41 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@ void    ft_insert_args(t_utils *utils, int argc, char **argv)
     {
         utils->nbr_of_times_each_philo_must_eat = ft_atoi(argv[5]);
     }
-    else
-        utils->nbr_of_times_each_philo_must_eat = 10000000;
-
+    utils->is_died = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:08:41 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/30 16:33:52 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:52:35 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ long long	gettime()
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	return (current_time.tv_usec / 1000);
+	return (current_time.tv_sec / 1000);
 }
