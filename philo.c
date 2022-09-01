@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:34:34 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/09/01 16:58:15 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:36:17 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ int main(int argc, char **argv)
     ft_create_philo(&utils, philo, argc);
 
 	ft_create_threads(&utils, philo);
-	// pause();
-	usleep(300);
-	pthread_t watcher;
-	pthread_create(&watcher, NULL, check_is_died, (void *)&philo);
-	pthread_join(watcher, NULL);
-	
-	// if(check_is_died(philo)== 0)
-	// 	return (0);
-	
 	i = 0;
 	while (i < utils.nbr_of_philo) {
 		pthread_detach(philo[i].thread);
 		i++;
 	}
+	usleep(300);
+	check_is_died(&philo);
+	// pause();
+	//pthread_create(&watcher, NULL, check_is_died, (void *)&philo);
+	//pthread_join(watcher, NULL);
+	
+	// if(check_is_died(philo)== 0)
+	// 	return (0);
+	
 }

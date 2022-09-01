@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:06:22 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/09/01 15:28:18 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:12:12 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_philo
 {
 	int			id;
 	pthread_t	thread;
-	int			right_fork;
-	int			left_fork;
+	pthread_mutex_t			right_fork;
+	pthread_mutex_t			*left_fork;
 	
 	t_utils		*utils;
 	int			last_eat;
