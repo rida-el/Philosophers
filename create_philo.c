@@ -6,11 +6,19 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:36:14 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/31 21:36:13 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:58:43 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_printf(char *str, t_utils *utils, int id) 
+{
+	pthread_mutex_lock(&utils->print);
+	printf("%d %s\n", id, str);
+	pthread_mutex_unlock(&utils->print);
+}
+
 
 
 void	*routine(void *philo)
@@ -18,65 +26,84 @@ void	*routine(void *philo)
 	t_philo *ph;
 	
 	ph =(t_philo *)philo;
-	if ((ph->id) % 2)
-		usleep(100);
-	// fprintf(stderr,"philo num == %d\n", ph->id);
 	while (ph->utils->is_died == 0)
 	{
 		pthread_mutex_lock(&(ph->utils->fork[ph->left_fork]));
-		pthread_mutex_lock(&(ph->utils->print));
-		printf("%d has taken a fork\n",(*ph).id);
-		pthread_mutex_unlock(&(ph->utils->print));
-		// printf("timestamp_in_ms %d has taken a fork\n",(*ph).id);
+		
+		// pthread_mutex_lock(&(ph->utils->print));
+		// printf("%d has taken a fork\n",(*ph).id);
+		// pthread_mutex_unlock(&(ph->utils->print));
+		ft_printf("has taken left fork",ph->utils,ph->id);
+		
 		pthread_mutex_lock(&(ph->utils->fork[ph->right_fork]));
-		pthread_mutex_lock(&(ph->utils->print));
-		printf("%d has taken a fork\n",(*ph).id);
-		pthread_mutex_unlock(&(ph->utils->print));
-		pthread_mutex_lock(&(ph->utils->print));
-		printf("%d is eating\n",(*ph).id);
-		pthread_mutex_unlock(&(ph->utils->print));
+		
+		// pthread_mutex_lock(&(ph->utils->print));
+		// printf("%d has taken a fork\n",(*ph).id);
+		// pthread_mutex_unlock(&(ph->utils->print));
+		ft_printf("has taken right fork",ph->utils,ph->id);
+		
+		// pthread_mutex_lock(&(ph->utils->print));
+		// printf("%d is eating\n",(*ph).id);
+		// pthread_mutex_unlock(&(ph->utils->print));
+		ft_printf("is eating",ph->utils,ph->id);
+		
 		usleep(ph->utils->time_to_eat * 1000);
 		ph->last_eat = gettime();
 		ph->nbr_of_eat += 1;
 		pthread_mutex_unlock(&(ph->utils->fork[ph->left_fork]));
+		// ft_printf("put down left fork",ph->utils,ph->id);
 		pthread_mutex_unlock(&(ph->utils->fork[ph->right_fork]));
-		pthread_mutex_lock(&(ph->utils->print));
-		printf("%d is sleeping\n",(*ph).id);
-		pthread_mutex_unlock(&(ph->utils->print));
+		// ft_printf("put down right fork",ph->utils,ph->id);
+		
+		// pthread_mutex_lock(&(ph->utils->print));
+		// printf("%d is sleeping\n",(*ph).id);
+		// pthread_mutex_unlock(&(ph->utils->print));
+		ft_printf("is sleeping",ph->utils,ph->id);
+		
 		usleep(ph->utils->time_to_sleep * 1000);
-		pthread_mutex_lock(&(ph->utils->print));
-		printf("%d is thinking\n",(*ph).id);
-		pthread_mutex_unlock(&(ph->utils->print));
+		
+		// pthread_mutex_lock(&(ph->utils->print));
+		// printf("%d is thinking\n",(*ph).id);
+		// pthread_mutex_unlock(&(ph->utils->print));
+		ft_printf("is thinking",ph->utils,ph->id);
 	}
 	return(NULL);
 }
 
 // grtTime() - first eat >= time to die
-void	*check_is_died(t_philo **philo)
+void	*check_is_died(void *ph)
 {
+	
 	int i;
 	t_utils *data;
+	t_philo	**philo;
+
+	philo = (t_philo **)ph;
 	
 	data = (*philo)->utils;
 
 	while (1)
 	{
 		i = 0;
-		while (!(data->is_died))
+		while (i < data->nbr_of_philo)
 		{
-			if (gettime() - (*philo)->last_eat >= data->time_to_die)
+			if (gettime() - (philo[i])->last_eat > data->time_to_die)
 			{
-				pthread_mutex_lock(&data->print);
-				printf("this %d is die\n", i + 1);
+				ft_printf("has died", data, i + 1);
 				data->is_died = 1;
-				return(0);	
+				break ;
 			}
-			if (ft_num_eating_check(*philo, data->nbr_of_times_each_philo_must_eat , (*philo)->argc) == 0)
+			if (ft_num_eating_check(philo[i], data->nbr_of_times_each_philo_must_eat , (*philo)->argc) == 0)
 			{
-				usleep(100);
 				data->is_died = 1;
-				return (0);
+				break;
+				
 			}
+			i++;
+		}
+		usleep(50);
+		if (data->is_died) {
+			return NULL ;
 		}
 	}
 }
@@ -90,11 +117,9 @@ int	ft_num_eating_check(t_philo *philo, int n_eat, int argc)
 	{
 		if (philo[i].nbr_of_eat < n_eat)
 			return (0);
-		else
-			return (1);
+		return (1);
 	}
-	else
-		return(0);
+	return(1);
 }
 
 void	ft_create_threads(t_utils *utils,t_philo *philo)
@@ -107,7 +132,10 @@ void	ft_create_threads(t_utils *utils,t_philo *philo)
 	// pthread_t	*thread = &(ph->thread); first time
 	while (i < utils->nbr_of_philo)
 	{
-		philo[i].last_eat = gettime();
+		// philo[i].last_eat = gettime();
+		if (philo->id % 2)
+			usleep(utils->time_to_eat * 1000 + 50);
+		philo->last_eat = gettime();
 		pthread_create(&(philo[i].thread), NULL ,&routine, &(philo[i]));
 		// pthread_create(&check, NULL ,check_is_died, &(philo[i]));
 		i++;

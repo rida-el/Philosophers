@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:06:22 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/08/31 18:21:45 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:28:18 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ int ft_chaeck_args(char *str);
 int ft_check_numbers(int argc, char **argv);
 int ft_check_error(t_utils utils, int argc, char **argv);
 void	*routine(void *philo);
-void	*check_is_died(t_philo **philo);
+void	*check_is_died(void *ph);
 int	ft_num_eating_check(t_philo *philo, int n_eat, int argc);
 void	ft_create_threads(t_utils *utils,t_philo *philo);
 void	ft_create_philo(t_utils *utils,t_philo *philo, int ac);
 void    ft_insert_args(t_utils *utils, int argc, char **argv);
 void	ft_usleep(long long time, t_utils *utils);
-void	ft_printf(t_utils *utils, char *info, int id);
+void	ft_printf(char *str, t_utils *utils, int id);
 
 #endif
