@@ -83,8 +83,11 @@ int check_is_died(t_utils *utils, t_philo *philo, int argc)
 		{
 			if (gettime() - philo[i].last_eat >= utils->time_to_die)
 			{
+				printf("%d\n",( philo[i].last_eat));
+				printf("%d\n",utils->time_to_die);
+				
 				utils->is_died = 1;
-				ft_printf("moooot",utils,philo);
+				//ft_printf("moooot",utils,philo);
 				return (1);
 			}
 			if (ft_num_eating_check(philo, utils->nbr_of_times_each_philo_must_eat, utils->nbr_of_philo, argc))
