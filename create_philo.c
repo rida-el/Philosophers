@@ -28,6 +28,7 @@ void *routine(void *philo)
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
 		usleep(ph->utils->time_to_eat * 1000 + 100);
+	// ph->last_eat = gettime();
 	while (ph->utils->is_died == 0)
 	{
 		pthread_mutex_lock(ph->utils->fork + ph->left_fork);
@@ -82,18 +83,13 @@ int check_is_died(t_utils *utils, t_philo *philo, int argc)
 		while (i < utils->nbr_of_philo)
 		{
 			if (gettime() - philo[i].last_eat >= utils->time_to_die)
-			{
-				printf("%d\n",( philo[i].last_eat));
-				printf("%d\n",utils->time_to_die);
-				
+			{	
 				utils->is_died = 1;
-				//ft_printf("moooot",utils,philo);
+				ft_printf("moooot",utils,philo);
 				return (1);
 			}
 			if (ft_num_eating_check(philo, utils->nbr_of_times_each_philo_must_eat, utils->nbr_of_philo, argc))
 			{
-
-				// pthread_mutex_unlock(&data->death);
 				utils->is_died = 1;
 				usleep(100);
 				return (1);
@@ -106,22 +102,17 @@ int check_is_died(t_utils *utils, t_philo *philo, int argc)
 
 void ft_create_threads(t_utils *utils, t_philo *philo)
 {
-	// t_philo *ph;
-	// pthread_t check;
+
 	int i;
 
 	i = 0;
-	// pthread_t	*thread = &(ph->thread); first time
 	while (i < utils->nbr_of_philo)
 	{
 		philo[i].last_eat = gettime();
-		// philo->last_eat = gettime();
 		pthread_create(&(philo[i].thread), NULL, &routine, &(philo[i]));
-		// pthread_create(&check, NULL ,check_is_died, &(philo[i]));
 		i++;
 	}
-	// pthread_create(&check,NULL,check_is_died, &(ph[i]));
-	// check_is_died(ph);
+
 }
 
 void ft_create_philo(t_utils *utils, t_philo **ph, int ac)
@@ -146,5 +137,5 @@ void ft_create_philo(t_utils *utils, t_philo **ph, int ac)
 		philo[i].argc = ac;
 		i++;
 	}
-	// printf("arg c : %d",philo[3].argc);
+
 }
