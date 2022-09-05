@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdlib.h>
+# include <string.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/time.h>
@@ -29,6 +30,7 @@ typedef struct s_utils
 	int				is_died;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t print;
+	pthread_mutex_t death;
 	
 }	t_utils;
 
@@ -36,8 +38,8 @@ typedef struct s_philo
 {
 	int			id;
 	pthread_t	thread;
-	pthread_mutex_t			right_fork;
-	pthread_mutex_t			*left_fork;
+	int			right_fork;
+	int			left_fork;
 	
 	t_utils		*utils;
 	int			last_eat;
@@ -56,12 +58,13 @@ int ft_chaeck_args(char *str);
 int ft_check_numbers(int argc, char **argv);
 int ft_check_error(t_utils utils, int argc, char **argv);
 void	*routine(void *philo);
-void	*check_is_died(void *ph);
-int	ft_num_eating_check(t_philo *philo, int n_eat, int argc);
+// void	*check_is_died(void *ph);
+int	check_is_died(t_utils *utils, t_philo *philo, int argc);
+int ft_num_eating_check(t_philo *philo, int n_eat,int nbr_of_philo, int argc);
 void	ft_create_threads(t_utils *utils,t_philo *philo);
-void	ft_create_philo(t_utils *utils,t_philo *philo, int ac);
+void	ft_create_philo(t_utils *utils, t_philo **ph, int ac);
 void    ft_insert_args(t_utils *utils, int argc, char **argv);
 void	ft_usleep(long long time, t_utils *utils);
-void	ft_printf(char *str, t_utils *utils, int id);
+void	ft_printf(char *str, t_utils *utils, t_philo *philo);
 
 #endif
