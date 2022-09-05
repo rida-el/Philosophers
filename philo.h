@@ -42,7 +42,7 @@ typedef struct s_philo
 	int			left_fork;
 	
 	t_utils		*utils;
-	int			last_eat;
+	long long	last_eat;
 	int			nbr_of_eat;
 	int 		argc;
 }	t_philo;
