@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 		i++;
 	}
 	pthread_mutex_init(&utils.print, NULL);
+	pthread_mutex_init(&utils.death, NULL);
 	ft_create_philo(&utils, &philo, argc);
 	utils.first_time = gettime();
 	ft_create_threads(&utils, philo);

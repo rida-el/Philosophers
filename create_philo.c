@@ -15,7 +15,7 @@
 void ft_printf(char *str, t_utils *utils, t_philo *philo)
 {
 	pthread_mutex_lock(&utils->print);
-	printf("%lld %d %s\n",((gettime() - utils->timestamp_in_ms)), philo->id, str);
+	printf("%lld %d %s\n", ((gettime() - utils->timestamp_in_ms)), philo->id, str);
 	pthread_mutex_unlock(&utils->print);
 }
 
@@ -25,7 +25,7 @@ void *routine(void *philo)
 
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
-		usleep(ph->utils->time_to_eat * 1000 + 100);
+		usleep(ph->utils->time_to_eat * 1000);
 	while (ph->utils->is_died == 0)
 	{
 		pthread_mutex_lock(ph->utils->fork + ph->left_fork);
@@ -45,8 +45,6 @@ void *routine(void *philo)
 	return (NULL);
 }
 
-
-
 void ft_create_threads(t_utils *utils, t_philo *philo)
 {
 	int i;
@@ -57,8 +55,7 @@ void ft_create_threads(t_utils *utils, t_philo *philo)
 	{
 		philo[i].last_eat = gettime();
 		pthread_create(&(philo[i].thread), NULL, &routine, &(philo[i]));
+		pthread_detach(philo[i].thread);
 		i++;
 	}
-
 }
-

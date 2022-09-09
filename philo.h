@@ -28,6 +28,7 @@ typedef struct s_utils
 	int				nbr_of_philo;
 	int				nbr_of_times_each_philo_must_eat;
 	int				is_died;
+	pthread_mutex_t death;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t print;
 	long long	timestamp_in_ms;
