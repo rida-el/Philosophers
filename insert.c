@@ -23,4 +23,25 @@ void    ft_insert_args(t_utils *utils, int argc, char **argv)
         utils->nbr_of_times_each_philo_must_eat = ft_atoi(argv[5]);
     }
     utils->is_died = 0;
+    utils->timestamp_in_ms = 0;
+}
+
+void ft_create_philo(t_utils *utils, t_philo **ph, int ac)
+{
+	int i;
+	t_philo *philo;
+	philo = *ph;
+	i = 0;
+	while (i < utils->nbr_of_philo)
+	{
+		philo[i].id = i + 1;
+		philo[i].left_fork = i;		
+		philo[i].right_fork = (i + 1) % utils->nbr_of_philo;
+		philo[i].utils = utils;
+		philo[i].nbr_of_eat = 0;
+		philo[i].last_eat = 0;
+		philo[i].argc = ac;
+		i++;
+	}
+	
 }
