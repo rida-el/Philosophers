@@ -30,7 +30,8 @@ typedef struct s_utils
 	int				is_died;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t print;
-	pthread_mutex_t death;
+	long long	timestamp_in_ms;
+	long long	first_time;
 	
 }	t_utils;
 
@@ -40,7 +41,6 @@ typedef struct s_philo
 	pthread_t	thread;
 	int			right_fork;
 	int			left_fork;
-	
 	t_utils		*utils;
 	long long	last_eat;
 	int			nbr_of_eat;

@@ -16,7 +16,7 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror -pthread
 
-SRC = philo.c utils.c check_error.c create_philo.c insert.c
+SRC = philo.c utils.c check_error.c create_philo.c insert.c check_is_died.c
 
 OBJ = $(SRC:.c=.o)
 
