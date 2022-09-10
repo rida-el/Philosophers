@@ -19,6 +19,19 @@ void ft_printf(char *str, t_utils *utils, t_philo *philo)
 	pthread_mutex_unlock(&utils->print);
 }
 
+void ft_usleep(int time_to_sleep)
+{
+	int i;
+
+	i = 0;
+	while (i < 1000)
+	{
+		usleep(time_to_sleep);
+		i++;
+	}
+}
+
+
 void *routine(void *philo)
 {
 	t_philo *ph;
@@ -34,12 +47,12 @@ void *routine(void *philo)
 		ft_printf("has taken a fork", ph->utils, ph);
 		ft_printf("is eating", ph->utils, ph);
 		ph->nbr_of_eat += 1;
-		usleep(ph->utils->time_to_eat * 1000);
+		ft_usleep(ph->utils->time_to_eat);
 		ph->last_eat = gettime();
 		pthread_mutex_unlock(ph->utils->fork + ph->left_fork);
 		pthread_mutex_unlock(ph->utils->fork + ph->right_fork);
 		ft_printf("is sleeping", ph->utils, ph);
-		usleep(ph->utils->time_to_sleep * 1000);
+		ft_usleep(ph->utils->time_to_sleep);
 		ft_printf("is thinking", ph->utils, ph);
 	}
 	return (NULL);
