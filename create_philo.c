@@ -20,15 +20,14 @@ void	ft_printf(char *str, t_utils *utils, t_philo *philo)
 	pthread_mutex_unlock(&utils->print);
 }
 
-void	ft_usleep(int time_to_sleep)
+void	ft_usleep(long long time_to_sleep)
 {
-	int	i;
+	long long	time_end;
 
-	i = 0;
-	while (i < 1000)
+	time_end = (gettime() * 1000) + time_to_sleep;
+	while ((gettime() * 1000) <= time_end)
 	{
-		usleep(time_to_sleep);
-		i++;
+		usleep(100);
 	}
 }
 
@@ -38,7 +37,7 @@ void	*routine(void *philo)
 
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
-		usleep(ph->utils->time_to_eat * 1000);
+		ft_usleep(500);
 	while (ph->utils->is_died == 0)
 	{
 		pthread_mutex_lock(ph->utils->fork + ph->left_fork);
@@ -46,13 +45,13 @@ void	*routine(void *philo)
 		pthread_mutex_lock(ph->utils->fork + ph->right_fork);
 		ft_printf("has taken a fork", ph->utils, ph);
 		ft_printf("is eating", ph->utils, ph);
+		ft_usleep(ph->utils->time_to_eat * 1000);
 		ph->nbr_of_eat += 1;
-		ft_usleep(ph->utils->time_to_eat);
 		ph->last_eat = gettime();
 		pthread_mutex_unlock(ph->utils->fork + ph->left_fork);
 		pthread_mutex_unlock(ph->utils->fork + ph->right_fork);
 		ft_printf("is sleeping", ph->utils, ph);
-		ft_usleep(ph->utils->time_to_sleep);
+		ft_usleep(ph->utils->time_to_sleep * 1000);
 		ft_printf("is thinking", ph->utils, ph);
 	}
 	return (NULL);

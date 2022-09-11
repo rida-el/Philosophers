@@ -56,7 +56,7 @@ int			ft_chaeck_args(char *str);
 int			ft_check_numbers(int argc, char **argv);
 int			ft_check_error(t_utils utils, int argc, char **argv);
 void		*routine(void *philo);
-void		ft_usleep(int time_to_sleep);
+void		ft_usleep(long long time_to_sleep);
 int			check_is_died(t_utils *utils, t_philo *philo, int argc);
 int			ft_num_eating_check(t_philo *philo,
 				int n_eat, int nbr_of_philo, int argc);

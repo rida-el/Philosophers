@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:04:28 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/09/10 22:47:15 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:43:22 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_is_died(t_utils *utils, t_philo *philo, int argc)
 		i = -1;
 		while (++i < utils->nbr_of_philo)
 		{
-			if (gettime() - philo[i].last_eat >= utils->time_to_die)
+			if (gettime() - philo[i].last_eat > utils->time_to_die)
 			{
 				pthread_mutex_lock(&utils->print);
 				printf("%lld %d died\n",
