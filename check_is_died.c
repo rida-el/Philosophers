@@ -6,7 +6,7 @@
 /*   By: rel-maza <rel-maza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:04:28 by rel-maza          #+#    #+#             */
-/*   Updated: 2022/09/10 22:39:56 by rel-maza         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:47:15 by rel-maza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	check_is_died(t_utils *utils, t_philo *philo, int argc)
 
 	while (utils->is_died == 0)
 	{
-		i = 0;
-		while (i < utils->nbr_of_philo)
+		i = -1;
+		while (++i < utils->nbr_of_philo)
 		{
 			if (gettime() - philo[i].last_eat >= utils->time_to_die)
 			{
@@ -44,15 +44,14 @@ int	check_is_died(t_utils *utils, t_philo *philo, int argc)
 				utils->is_died = 1;
 				return (1);
 			}
-			if ((ft_num_eating_check(philo, utils->times_must_eat, utils->nbr_of_philo, argc)) == 1)
+			if ((ft_num_eating_check(philo, utils->times_must_eat,
+						utils->nbr_of_philo, argc)) == 1)
 			{
 				utils->is_died = 1;
 				usleep(6000);
 				return (1);
 			}
-			i++;
 		}
 	}
 	return (0);
 }
-

@@ -12,12 +12,11 @@
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-
-	t_utils utils;
-	t_philo *philo;
-	int i;
+	t_utils	utils;
+	t_philo	*philo;
+	int		i;
 
 	if (argc != 5 && argc != 6)
 		return (printf("error\n"), 1);
@@ -33,10 +32,9 @@ int main(int argc, char **argv)
 		i++;
 	}
 	pthread_mutex_init(&utils.print, NULL);
-	pthread_mutex_init(&utils.death, NULL);
 	ft_create_philo(&utils, &philo, argc);
 	utils.first_time = gettime();
 	ft_create_threads(&utils, philo);
 	if (check_is_died(&utils, philo, argc))
-		return (0);	
+		return (0);
 }

@@ -12,16 +12,17 @@
 
 #include "philo.h"
 
-void ft_printf(char *str, t_utils *utils, t_philo *philo)
+void	ft_printf(char *str, t_utils *utils, t_philo *philo)
 {
 	pthread_mutex_lock(&utils->print);
-	printf("%lld %d %s\n", ((gettime() - utils->timestamp_in_ms)), philo->id, str);
+	printf("%lld %d %s\n", ((gettime()
+				- utils->timestamp_in_ms)), philo->id, str);
 	pthread_mutex_unlock(&utils->print);
 }
 
-void ft_usleep(int time_to_sleep)
+void	ft_usleep(int time_to_sleep)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 1000)
@@ -31,10 +32,9 @@ void ft_usleep(int time_to_sleep)
 	}
 }
 
-
-void *routine(void *philo)
+void	*routine(void *philo)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
@@ -58,9 +58,9 @@ void *routine(void *philo)
 	return (NULL);
 }
 
-void ft_create_threads(t_utils *utils, t_philo *philo)
+void	ft_create_threads(t_utils *utils, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	utils->timestamp_in_ms = gettime();

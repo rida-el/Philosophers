@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-int ft_check_args(char *str)
+int	ft_check_args(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -26,9 +26,10 @@ int ft_check_args(char *str)
 	return (1);
 }
 
-int ft_check_numbers(int argc, char **argv)
+int	ft_check_numbers(int argc, char **argv)
 {
-	if (!ft_check_args(argv[1]) || !ft_check_args(argv[2]) || !ft_check_args(argv[3]) || !ft_check_args(argv[4]))
+	if (!ft_check_args(argv[1]) || !ft_check_args(argv[2])
+		|| !ft_check_args(argv[3]) || !ft_check_args(argv[4]))
 		return (printf("error"), 0);
 	if (argc == 6)
 		if (!ft_check_args(argv[5]))
@@ -36,7 +37,7 @@ int ft_check_numbers(int argc, char **argv)
 	return (1);
 }
 
-int ft_check_error(t_utils utils, int argc, char **argv)
+int	ft_check_error(t_utils utils, int argc, char **argv)
 {
 	if (!ft_check_numbers(argc, argv))
 		return (printf("error\n"), 0);
